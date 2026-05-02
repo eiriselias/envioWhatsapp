@@ -1,8 +1,10 @@
 import time
 import pyautogui as pg
+import sys
+import os
+from tkinter import messagebox
+
 def ruta_recurso(relative_path):
-    import sys
-    import os
     try:
         # Si es un .exe, busca en la carpeta temporal _MEIPASS
         base_path = sys._MEIPASS
@@ -40,7 +42,9 @@ def envio(numero, mensaje):
                 print('Pestaña cerrada')
                 
         except (pg.ImageNotFoundException, Exception):
+            messagebox.showwarning("Error", "No se encontró el botón de enviar mensaje.")
             time.sleep(2) 
             
     if not encontrado:
         print(f'❌ Tiempo agotado para {numero}. ¿WhatsApp cargó correctamente?')
+        

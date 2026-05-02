@@ -162,7 +162,7 @@ def construir_url(tel, mensaje):
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Recordatorio de Inconvenientes — WhatsApp")
+        self.title("Mensajes Automáticos — WhatsApp")
         self.geometry("1100x700")
         self.minsize(900, 580)
         self.configure(bg=BG)
@@ -178,11 +178,9 @@ class App(tk.Tk):
 
         tk.Label(sidebar, text="💬", font=("Segoe UI Emoji", 32),
                  bg=SIDEBAR, fg=VERDE_WA).pack(pady=(32, 4))
-        tk.Label(sidebar, text="WhatsApp\nRecordatorio",
+        tk.Label(sidebar, text="WhatsApp\nAuto Mensajes",
                  font=("Segoe UI", 14, "bold"), bg=SIDEBAR,
                  fg=BLANCO, justify="center").pack()
-        tk.Label(sidebar, text="Centro de Fisioterapia",
-                 font=("Segoe UI", 9), bg=SIDEBAR, fg="#8892A4").pack(pady=(2, 28))
 
         ttk.Separator(sidebar, orient="horizontal").pack(fill="x", padx=20)
 
@@ -205,8 +203,8 @@ class App(tk.Tk):
                  font=("Segoe UI", 8, "bold"), bg=SIDEBAR,
                  fg="#8892A4").pack(pady=(8, 4), padx=16, anchor="w")
 
-        self.var_tipo_filtro = tk.StringVar(value="Todos")
-        tipos_filtro = ["Todos"] + TIPOS_INCONVENIENTE[1:]
+        self.var_tipo_filtro = tk.StringVar(value="PERSONALIZADO")
+        tipos_filtro = ["PERSONALIZADO"] + TIPOS_INCONVENIENTE[1:]
         self.combo_tipo = ttk.Combobox(sidebar, textvariable=self.var_tipo_filtro,
                                         values=tipos_filtro, state="readonly", width=22)
         self.combo_tipo.pack(padx=16)
@@ -219,9 +217,10 @@ class App(tk.Tk):
         self.label_personalizado = tk.Label(self.personalizado, text="MENSAJE PERSONALIZADO",
                  font=("Segoe UI", 8, "bold"), bg=SIDEBAR,
                  fg="#8892A4")
-        self.label_personalizado.pack_forget() 
-        self.text_personalizado = tk.Text(self.personalizado, width=22, height=5)
-        self.text_personalizado.pack_forget() 
+        self.label_personalizado.pack(pady=(8, 4), padx=16, anchor="w")
+        self.text_personalizado = tk.Text(self.personalizado, height=5)
+        self.text_personalizado.pack(pady=(8, 4), padx=16)
+       
 
 
         # Contador
@@ -419,7 +418,6 @@ class App(tk.Tk):
         shown = len(filtrados)
         self.lbl_count.config(
             text=f"{shown} de {total} pacientes")
-        print(self.var_tipo_filtro.get())
         if self.var_tipo_filtro.get() == "PERSONALIZADO":
             self.label_personalizado.pack(pady=(8, 4), padx=16, anchor="w")
             self.text_personalizado.pack(pady=(8, 4))
