@@ -4,6 +4,8 @@ import sys
 import os
 from tkinter import messagebox
 
+lista_errores = []
+
 def ruta_recurso(relative_path):
     try:
         # Si es un .exe, busca en la carpeta temporal _MEIPASS
@@ -39,7 +41,8 @@ def envio(numero, mensaje):
                 time.sleep(2) 
                 
                 pg.hotkey('ctrl', 'w') 
-                print('Pestaña cerrada')
+                time.sleep(1.0)
+                pg.press('enter')
                 
         except (pg.ImageNotFoundException, Exception):
             messagebox.showwarning("Error", "No se encontró el botón de enviar mensaje.")
@@ -47,4 +50,4 @@ def envio(numero, mensaje):
             
     if not encontrado:
         print(f'❌ Tiempo agotado para {numero}. ¿WhatsApp cargó correctamente?')
-        
+        lista_errores.append(numero)

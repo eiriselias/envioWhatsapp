@@ -11,12 +11,14 @@ import webbrowser
 import urllib.parse
 import re
 import os
-from auto_envio import envio
+from auto_envio import envio, lista_errores
 import time
 import sys
 import os
 
 # Obtiene la ruta absoluta para recursos (imágenes, etc) 
+
+errores = "\n".join(str(i) for i in lista_errores)
 
 def ruta_recurso(relative_path):
     try:
@@ -518,7 +520,8 @@ class App(tk.Tk):
             # Pausa breve antes del siguiente
             time.sleep(2)
             self.update()
-
+        if lista_errores:
+            messagebox.showwarning("No enviados", {errores})
         messagebox.showinfo("Finalizado", "Se ha completado la lista de envíos.")
     def _ordenar(self, col):
         data = [(self.tabla.set(k, col), k) for k in self.tabla.get_children()]
