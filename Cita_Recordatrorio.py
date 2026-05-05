@@ -505,7 +505,7 @@ class App(tk.Tk):
             nombre_corto = p["nombre"].split()[0].capitalize()
             msg_final = msg_final.replace("{nombre}", nombre_corto)
 
-            url = construir_url(p["tel_limpio"], msg_final)
+            url = construir_url(p["tel_limpio"], f"Hola {p['nombre']}, {msg_final}")
             webbrowser.open(url)
             
             # Forzamos a que la interfaz se actualice para que no diga "No responde"
@@ -515,13 +515,13 @@ class App(tk.Tk):
             time.sleep(10) 
             
             # Llamamos a tu función de auto_envio
-            envio(p["tel_limpio"], msg_final)
+            envio(p["tel_limpio"])
             
             # Pausa breve antes del siguiente
             time.sleep(2)
             self.update()
-        if lista_errores:
-            messagebox.showwarning("No enviados", {errores})
+        if len(lista_errores) > 0:
+            messagebox.showwarning("No enviados", f"Numeros no enviados por favor reviselos: \n{'\n'.join(lista_errores)}")
         messagebox.showinfo("Finalizado", "Se ha completado la lista de envíos.")
     def _ordenar(self, col):
         data = [(self.tabla.set(k, col), k) for k in self.tabla.get_children()]

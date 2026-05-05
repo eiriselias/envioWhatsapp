@@ -18,7 +18,7 @@ def ruta_recurso(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-def envio(numero, mensaje):
+def envio(numero):
     encontrado = False  
     inicio = time.time()
 
@@ -28,7 +28,7 @@ def envio(numero, mensaje):
 
     while not encontrado and (time.time() - inicio < 35):
         try:
-            btn = pg.locateOnScreen(ruta_imagen, confidence=0.8, grayscale=True)
+            btn = pg.locateCenterOnScreen(ruta_imagen, confidence=0.8, grayscale=True)
             
             if btn is not None:
                 pg.click(btn)
@@ -45,9 +45,9 @@ def envio(numero, mensaje):
                 pg.press('enter')
                 
         except (pg.ImageNotFoundException, Exception):
-            messagebox.showwarning("Error", "No se encontró el botón de enviar mensaje.")
-            time.sleep(2) 
+            print(f"Buscando boton para el {numero}...")
+            time.sleep(1)
             
     if not encontrado:
-        print(f'❌ Tiempo agotado para {numero}. ¿WhatsApp cargó correctamente?')
         lista_errores.append(numero)
+        print(f'❌ Tiempo agotado para {numero}. No se encontró el botón de enviar mensaje.')
