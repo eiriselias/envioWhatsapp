@@ -4,6 +4,7 @@
 #  Uso: python enviar_whatsapp.py
 # ============================================================
 
+import shutil
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import openpyxl
@@ -186,7 +187,10 @@ class App(tk.Tk):
 
         ttk.Separator(sidebar, orient="horizontal").pack(fill="x", padx=20)
 
-        # Botón cargar Excel
+        # Botón descargar plantilla Excel
+        self._sidebar_btn(sidebar, " Descargar plantilla Excel", self.descargar_plantilla, ROJO)
+
+        # Botón cargar Excelº
         self._sidebar_btn(sidebar, "📂  Cargar Excel", self.cargar_excel, VERDE_OSC)
 
         # Filtro profesional
@@ -389,6 +393,25 @@ class App(tk.Tk):
                 f"✅ {len(self.pacientes)} pacientes cargados correctamente.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo cargar el archivo:\n{e}")
+
+    def descargar_plantilla(self):
+        origen = ruta_recurso("plantilla.xlsx")
+        
+        destino = filedialog.asksaveasfilename(
+            defaultextension=".xlsx",
+            filetypes=[("Archivos de Excel", "*.xlsx")],
+            initialfile="plantilla.xlsx",
+            title="Selecciona dónde guardar la plantilla"
+        )
+        if destino:
+            try:
+                shutil.copy2(origen, destino)
+                
+                messagebox.showinfo("Descargado", f"✅ Plantilla guardada correctamente.")
+            except FileNotFoundError:
+                messagebox.showerror("Error", "No se encontró el archivo original 'plantilla.xlsx' en la carpeta del programa.")
+            except Exception as e:
+                messagebox.showerror("Error", f"No se pudo copiar el archivo: {e}")
 
     def _pacientes_filtrados(self):
         filtro_prof = self.var_filtro.get()
