@@ -299,7 +299,7 @@ class App(tk.Tk):
                            highlightbackground=BORDE, highlightthickness=1)
         detalle.pack(fill="x", padx=16, pady=(0, 12))
 
-        tk.Label(detalle, text="Paciente seleccionado",
+        tk.Label(detalle, text="Mensajes Individuales - Paciente seleccionado",
                  font=("Segoe UI", 10, "bold"), bg=BLANCO, fg=TEXTO).grid(
                  row=0, column=0, columnspan=4, sticky="w", padx=12, pady=(10, 4))
 

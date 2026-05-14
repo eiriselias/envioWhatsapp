@@ -34,6 +34,8 @@ def envio(numero):
                 pg.click(btn)
                 time.sleep(1.0) 
                 pg.press('enter')
+                time.sleep(1.0) 
+                pg.press('enter')
                 print(f'✅ Mensaje enviado a {numero}')
                 
                 encontrado = True
